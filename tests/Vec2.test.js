@@ -36,6 +36,16 @@ Vec2.LizeStatic('Info', {}, function () {
   return 'LizeAPI'
 })
 
+Vec2.LizeStaticGroup('Info', build => {
+  build({
+    name: String
+  }, function ({ name }) {
+    if (name === 'Version') return '0.0.2'
+
+    return false
+  })
+})
+
 describe('Vec2 test', () => {
   test('Vec2.set', () => {
     let pos1 = new Vec2(0, 0)
@@ -50,5 +60,7 @@ describe('Vec2 test', () => {
 
   test('Vec2.Info', () => {
     expect(Vec2.Info()).toBe('LizeAPI')
+    expect(Vec2.Info('Version')).toBe('0.0.2')
+    expect(Vec2.Info('Unknown')).toBeFalsy()
   })
 })

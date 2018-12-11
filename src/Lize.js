@@ -144,4 +144,20 @@ LizeWrapper(LizeCore.Lize.Class, 'LizePrototypeGroup', {
   fn(builder.build)
 })
 
+LizeWrapper(LizeCore.Lize.Class, 'LizeStaticGroup', {
+  name: String,
+  fn: Function
+}, function ({ name, fn }) {
+  let builder = {}
+  let prototype = this
+
+  LizeWrapper(builder, 'build', {
+    args: Object,
+    process: Function
+  }, function ({ args, process }) {
+    LizeWrapper(prototype, name, args, process)
+  })
+  fn(builder.build)
+})
+
 module.exports = LizeCore.Lize
