@@ -19,6 +19,19 @@ Vec2.LizePrototype('set', {
   this.y = y
 })
 
+Vec2.LizePrototypeGroup('set', build => {
+  build({
+    xy: Number,
+  }, function ({ xy }) {
+    this.set(xy, xy)
+  })
+  build({
+    object: Object,
+  }, function ({ object }) {
+    this.set(object.x, object.y)
+  })
+})
+
 Vec2.LizeStatic('Info', {}, function () {
   return 'LizeAPI'
 })
@@ -28,6 +41,11 @@ describe('Vec2 test', () => {
     let pos1 = new Vec2(0, 0)
 
     expect(pos1.components()).toEqual({ x: 0, y: 0 })
+
+    pos1.set(32)
+    
+    expect(pos1.components()).toEqual({ x: 32, y: 32 })
+
   })
 
   test('Vec2.Info', () => {
